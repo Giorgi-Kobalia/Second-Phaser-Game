@@ -22,7 +22,12 @@ export class Terrace extends Phaser.Scene {
     bcg.displayWidth = this.cameras.main.width;
     bcg.displayHeight = this.cameras.main.height;
 
-    this.player = new Player(this, centerX, centerY, "player");
+    const data = this.scene.settings.data as { x?: number; y?: number };
+
+    const spawnX = data.x ?? centerX;
+    const spawnY = data.y ?? centerY;
+
+    this.player = new Player(this, spawnX, spawnY, "player");
     this.player.setScale(2);
     this.player.setCollideWorldBounds(true);
   }
@@ -34,16 +39,16 @@ export class Terrace extends Phaser.Scene {
       const playerBounds = this.player.getBounds();
       const worldBounds = this.physics.world.bounds;
 
-      if ((playerBounds.left === worldBounds.left)) {
+      if (playerBounds.left <= worldBounds.left) {
         this.scene.start("DeadForest", {
-          x: this.player?.x,
+          x: this.cameras.main.width - playerBounds.width, // Appear on the right side
           y: this.player?.y,
         });
       }
 
-      if ((playerBounds.right === worldBounds.right)) {
+      if (playerBounds.right >= worldBounds.right) {
         this.scene.start("ThroneRoom", {
-          x: this.player?.x,
+          x: playerBounds.width, // Appear on the left side
           y: this.player?.y,
         });
       }

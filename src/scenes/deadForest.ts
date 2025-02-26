@@ -22,7 +22,13 @@ export class DeadForest extends Phaser.Scene {
     bcg.displayWidth = this.cameras.main.width;
     bcg.displayHeight = this.cameras.main.height;
 
-    this.player = new Player(this, centerX, centerY, "player");
+    const data = this.scene.settings.data as { x?: number; y?: number };
+
+    const spawnX = data.x ?? centerX;
+    const spawnY = data.y ?? centerY;
+
+    this.player = new Player(this, spawnX, spawnY, "player");
+
     this.player.setScale(2);
     this.player.setCollideWorldBounds(true);
   }
@@ -34,9 +40,9 @@ export class DeadForest extends Phaser.Scene {
       const playerBounds = this.player.getBounds();
       const worldBounds = this.physics.world.bounds;
 
-      if (playerBounds.right === worldBounds.right) {
+      if (playerBounds.right >= worldBounds.right) {
         this.scene.start("Terrace", {
-          x: this.player?.x,
+          x: playerBounds.width, // Appear on the left side
           y: this.player?.y,
         });
       }
