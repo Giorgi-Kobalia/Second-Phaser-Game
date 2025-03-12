@@ -8,8 +8,8 @@ export class DeadForest extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(SCENES.FOREST, "/assets/bacgrounds/deadForest.png");
-    this.load.spritesheet("player", "/assets/player/Player.png", {
+    this.load.image(SCENES.FOREST, "./assets/bacgrounds/deadForest.png");
+    this.load.spritesheet("player", "./assets/player/Player.png", {
       frameWidth: 128,
       frameHeight: 128,
     });

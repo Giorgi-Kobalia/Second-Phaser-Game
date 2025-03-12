@@ -8,8 +8,8 @@ export class Terrace extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(SCENES.TERRACE, "/assets/bacgrounds/terrace.png");
-    this.load.spritesheet("player", "/assets/player/Player.png", {
+    this.load.image(SCENES.TERRACE, "./assets/bacgrounds/terrace.png");
+    this.load.spritesheet("player", "./assets/player/Player.png", {
       frameWidth: 128,
       frameHeight: 128,
     });
